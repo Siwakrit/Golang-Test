@@ -45,8 +45,6 @@ A complete gRPC-based user management service with JWT authentication and MongoD
 
 ## 🚀 Getting Started
 
-> **Note**: For a Thai version of this guide, please see [docs/README_TH.md](docs/README_TH.md)
-
 ### Prerequisites
 
 - **Go 1.23+** - [Download and install Go](https://golang.org/dl/)
@@ -91,7 +89,6 @@ A complete gRPC-based user management service with JWT authentication and MongoD
 │       └── main.go               # Main server entry point
 ├── docs/                         # Documentation files
 │   ├── QUICK_COMMANDS.md         # Quick command reference
-│   ├── README_TH.md              # Thai documentation
 │   └── SETUP_GUIDE.md            # Detailed setup guide
 ├── internal/                     # Private application code
 │   ├── auth/                     # Authentication components
@@ -820,4 +817,3 @@ The following tasks are planned for future improvement:
 For detailed information, check:
 - [Setup Guide](docs/SETUP_GUIDE.md) - Detailed installation instructions
 - [Quick Commands](docs/QUICK_COMMANDS.md) - Common operations reference
-- [Thai Documentation](docs/README_TH.md) - Thai language documentation
