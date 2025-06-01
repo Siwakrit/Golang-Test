@@ -11,19 +11,20 @@ import (
 
 	"github.com/yourusername/api/proto"
 	"github.com/yourusername/internal/models"
+	"github.com/yourusername/internal/utils"
 )
 
 // ListUsers retrieves a list of users with filtering and pagination
 func (s *Service) ListUsers(ctx context.Context, req *proto.ListUsersRequest) (*proto.ListUsersResponse, error) {
 	// Set default pagination values if not provided
 	page := int64(1)
-	limit := int64(10)
+	limit := int64(utils.DefaultPageSize)
 
 	if req.Page > 0 {
 		page = int64(req.Page)
 	}
 
-	if req.Limit > 0 && req.Limit <= 100 {
+	if req.Limit > 0 && req.Limit <= utils.MaxPageSize {
 		limit = int64(req.Limit)
 	}
 

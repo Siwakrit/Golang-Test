@@ -32,7 +32,7 @@ cd Golang-Test
 mkdir -p api/proto
 mkdir -p cmd/server
 mkdir -p docs
-mkdir -p internal/{auth,config,db,middleware,models,services}
+mkdir -p internal/{auth,config,db,middleware,models,services/user,utils}
 mkdir -p test
 ```
 
@@ -80,8 +80,22 @@ New-Item -Path "internal/middleware/rate_limiter.go" -ItemType File
 # สร้างไฟล์ Configuration
 New-Item -Path "internal/config/config.go" -ItemType File
 
-# สร้างไฟล์ Service Logic
-New-Item -Path "internal/services/user_service.go" -ItemType File
+# สร้างไฟล์ Service Logic (แบ่งตาม domain)
+New-Item -Path "internal/services/user/service.go" -ItemType File
+New-Item -Path "internal/services/user/auth.go" -ItemType File
+New-Item -Path "internal/services/user/profile.go" -ItemType File
+New-Item -Path "internal/services/user/registration.go" -ItemType File
+New-Item -Path "internal/services/user/list.go" -ItemType File
+New-Item -Path "internal/services/user/password.go" -ItemType File
+New-Item -Path "internal/services/user/utils.go" -ItemType File
+
+# สร้างไฟล์ Utils
+New-Item -Path "internal/utils/constants.go" -ItemType File
+New-Item -Path "internal/utils/token.go" -ItemType File
+New-Item -Path "internal/utils/validation.go" -ItemType File
+
+# สร้างไฟล์จัดการ Authentication Context
+New-Item -Path "internal/auth/context.go" -ItemType File
 
 # สร้างไฟล์หลักของเซิร์ฟเวอร์
 New-Item -Path "cmd/server/main.go" -ItemType File

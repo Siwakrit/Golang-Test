@@ -2,7 +2,6 @@ package user
 
 import (
 	"context"
-	"regexp"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -13,29 +12,24 @@ import (
 
 	"github.com/yourusername/api/proto"
 	"github.com/yourusername/internal/models"
+	"github.com/yourusername/internal/utils"
 )
 
 // Register creates a new user account
 func (s *Service) Register(ctx context.Context, req *proto.RegisterRequest) (*proto.User, error) {
-	// Validate inputs
-	if req.Email == "" || req.Password == "" || req.Name == "" {
-		return nil, status.Error(codes.InvalidArgument, "name, email and password are required")
+	// Validate name
+	if err := utils.ValidateName(req.Name); err != nil {
+		return nil, err
 	}
 
-	// Validate email format
-	emailRegex := regexp.MustCompile(`^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$`)
-	if !emailRegex.MatchString(req.Email) {
-		return nil, status.Error(codes.InvalidArgument, "invalid email format")
+	// Validate email
+	if err := utils.ValidateEmail(req.Email); err != nil {
+		return nil, err
 	}
 
-	// Check password strength (at least 8 chars, with letters and numbers)
-	if len(req.Password) < 8 {
-		return nil, status.Error(codes.InvalidArgument, "password must be at least 8 characters")
-	}
-	hasLetter := regexp.MustCompile(`[a-zA-Z]`).MatchString(req.Password)
-	hasNumber := regexp.MustCompile(`[0-9]`).MatchString(req.Password)
-	if !hasLetter || !hasNumber {
-		return nil, status.Error(codes.InvalidArgument, "password must contain both letters and numbers")
+	// Validate password
+	if err := utils.ValidatePassword(req.Password); err != nil {
+		return nil, err
 	}
 
 	// Check if email is already registered

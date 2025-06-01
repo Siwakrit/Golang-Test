@@ -59,11 +59,24 @@ Before you begin, ensure you have installed:
 ├── docs/              # Documentation files
 ├── internal/          # Private application code
 │   ├── auth/          # Authentication logic
+│   │   └── context.go # Authentication context functions
 │   ├── config/        # Configuration management
 │   ├── db/            # Database connectivity
 │   ├── middleware/    # gRPC interceptors
 │   ├── models/        # Data models
-│   └── services/      # Business logic
+│   ├── services/      # Business logic
+│   │   └── user/      # User-related service implementations
+│   │       ├── service.go       # User service initialization
+│   │       ├── auth.go          # Authentication functions
+│   │       ├── profile.go       # Profile management
+│   │       ├── registration.go  # User registration
+│   │       ├── list.go          # User listing functions
+│   │       ├── password.go      # Password reset functionality
+│   │       └── utils.go         # User-service specific utilities
+│   └── utils/         # Utility functions and helpers
+│       ├── constants.go  # Application constants
+│       ├── token.go      # Token management utilities
+│       └── validation.go # Input validation utilities
 ├── test/              # Test files
 ├── .env               # Environment variables (create this)
 ├── docker-compose.yml # Docker Compose configuration
@@ -72,6 +85,56 @@ Before you begin, ensure you have installed:
 ├── go.sum             # Go module checksums
 └── README.md          # Project documentation
 ```
+
+### User Service Architecture
+
+The user service follows domain-driven design principles, organizing code by business functionality rather than technical layers. This approach improves code maintainability, readability, and scalability:
+
+- **service.go**: Contains the service initialization code, interface definitions, and structure that holds dependencies
+- **auth.go**: Implements authentication functionality including login and token verification
+- **profile.go**: Handles user profile operations (create, read, update, delete)
+- **registration.go**: Manages user registration flow including email verification
+- **list.go**: Implements user listing with pagination and filtering
+- **password.go**: Contains password reset functionality
+- **utils.go**: User-specific utility functions
+
+The service relies on shared functionality from other packages:
+- **internal/auth/context.go**: For authentication context handling
+- **internal/utils/validation.go**: For input validation
+- **internal/utils/token.go**: For token generation and management
+- **internal/utils/constants.go**: For system-wide constants
+
+## Recent Refactoring
+
+This project recently underwent significant refactoring to improve code organization and maintainability:
+
+1. **Monolithic Service Split**: Separated the original `user_service.go` into multiple domain-specific files
+   - Each file focuses on a specific functionality (auth, profile, registration, etc.)
+   - Better separation of concerns and improved readability
+
+2. **Domain-Driven Structure**: Reorganized code to follow domain-driven design principles
+   - Moved from flat structure to domain-based structure
+   - Updated imports from `services` to `services/user`
+
+3. **Shared Functionality Extraction**: Created common utility packages for shared functions
+   - `internal/auth/context.go`: Central authentication context functions
+   - `internal/utils/validation.go`: Input validation helpers
+   - `internal/utils/token.go`: Token generation and management
+   - `internal/utils/constants.go`: System-wide constants
+
+4. **Service Initialization**: Updated service initialization in `main.go`
+   - Changed from `services.NewUserService()` to `user.NewService()`
+
+The refactoring improves code maintainability, reduces technical debt, and makes the codebase more scalable for future development.
+
+### Pending Tasks
+
+The following tasks are planned for future improvement:
+
+1. **Update Documentation**: Create comprehensive documentation for the utilities and new modules
+2. **Improve Code Quality**: Continue refactoring and improving code quality as needed
+3. **Implement Tests**: Add unit and integration tests for the new structure
+4. **Enhance Validation**: Strengthen input validation across all endpoints
 
 ## Setup Instructions
 
@@ -392,9 +455,17 @@ This service follows a clean architecture approach with separation of concerns:
 - **Purpose**: Defines service contracts, message formats, and communication protocols
 
 ### Service Layer
-- **Location**: `/internal/services/user_service.go`
+- **Location**: `/internal/services/user/`
 - **Purpose**: Implements business logic and validation
 - **Features**: Authentication, user management, and password reset functionality
+- **Files**:
+  - `service.go`: Service initialization and interface definitions
+  - `auth.go`: Authentication functionality (login, token verification)
+  - `profile.go`: User profile management (CRUD operations)
+  - `registration.go`: User registration and email verification
+  - `list.go`: User listing with pagination and filtering
+  - `password.go`: Password reset functionality
+  - `utils.go`: User-specific utility functions
 
 ### Data Layer
 - **Location**: `/internal/db/mongodb.go`, `/internal/models/`
@@ -405,19 +476,30 @@ This service follows a clean architecture approach with separation of concerns:
   - Data models for users, tokens, and password resets
 
 ### Authentication
-- **Location**: `/internal/auth/jwt.go`
-- **Purpose**: JWT token generation, validation, and management
+- **Location**: `/internal/auth/jwt.go`, `/internal/auth/context.go`
+- **Purpose**: JWT token generation, validation, and context management
 - **Features**:
   - Token generation with configurable expiration
   - Token verification
   - Claims extraction
+  - Authentication context handling (getUserIDFromContext)
 
 ### Middleware
+
 - **Location**: `/internal/middleware/`
 - **Purpose**: gRPC interceptors for cross-cutting concerns
 - **Components**:
   - Authentication interceptor for JWT validation
   - Rate limiting interceptor for login attempts
+
+### Utilities
+
+- **Location**: `/internal/utils/`
+- **Purpose**: Shared utility functions used across services
+- **Components**:
+  - `constants.go`: System-wide constants (token duration, password requirements, etc.)
+  - `token.go`: Secure token generation and management
+  - `validation.go`: Input validation for emails, passwords, and other user inputs
 
 ### Configuration
 - **Location**: `/internal/config/config.go`
@@ -539,5 +621,13 @@ This project fulfills the following requirements:
 ## Conclusion
 
 This User Management API provides a secure, scalable foundation for user authentication and profile management. The gRPC implementation offers high performance, while MongoDB provides flexible data storage. JWT authentication ensures secure access control, and the clean architecture makes the code maintainable and extensible.
+
+The recent refactoring has significantly improved the project structure by:
+
+1. **Improving Code Organization**: Logical separation of concerns into domain-specific files
+2. **Enhancing Maintainability**: Smaller, focused files that are easier to understand and maintain
+3. **Promoting Reusability**: Shared utilities and authentication functions for consistent implementation
+4. **Supporting Scalability**: Well-structured code that can easily accommodate new features
+5. **Following Best Practices**: Adhering to modern Go project structure and domain-driven design principles
 
 For questions or contributions, please open an issue or pull request on the GitHub repository.

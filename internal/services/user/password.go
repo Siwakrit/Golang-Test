@@ -2,8 +2,6 @@ package user
 
 import (
 	"context"
-	"crypto/rand"
-	"encoding/hex"
 	"fmt"
 	"time"
 
@@ -15,6 +13,7 @@ import (
 
 	"github.com/yourusername/api/proto"
 	"github.com/yourusername/internal/models"
+	"github.com/yourusername/internal/utils"
 )
 
 // ResetPassword initiates a password reset process
@@ -29,17 +28,15 @@ func (s *Service) ResetPassword(ctx context.Context, req *proto.ResetPasswordReq
 		}
 		return nil, status.Error(codes.Internal, "database error")
 	}
-
 	// Generate a reset token
-	tokenBytes := make([]byte, 32)
-	if _, err := rand.Read(tokenBytes); err != nil {
-		return nil, status.Error(codes.Internal, "failed to generate token")
+	token, err := utils.GenerateSecureToken(32)
+	if err != nil {
+		return nil, err
 	}
-	token := hex.EncodeToString(tokenBytes)
 
 	// Save token to database
 	now := time.Now()
-	expiresAt := now.Add(24 * time.Hour) // Token valid for 24 hours
+	expiresAt := now.Add(utils.TokenValidDuration)
 
 	resetToken := models.PasswordReset{
 		UserID:    user.ID,
@@ -64,8 +61,8 @@ func (s *Service) ResetPassword(ctx context.Context, req *proto.ResetPasswordReq
 // ResetPasswordConfirm completes the password reset process
 func (s *Service) ResetPasswordConfirm(ctx context.Context, req *proto.ResetPasswordConfirmRequest) (*proto.Empty, error) {
 	// Validate password
-	if len(req.NewPassword) < 8 {
-		return nil, status.Error(codes.InvalidArgument, "password must be at least 8 characters")
+	if err := utils.ValidatePassword(req.NewPassword); err != nil {
+		return nil, err
 	}
 
 	// Find the reset token
