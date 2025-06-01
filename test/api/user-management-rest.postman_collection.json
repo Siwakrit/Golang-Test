@@ -1,0 +1,206 @@
+{
+  "info": {
+    "name": "User Management REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "A collection for testing the User Management REST API via gRPC-Gateway"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/v1/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["v1", "register"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"Password123\"\n}"
+            },
+            "description": "Register a new user via REST"
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/v1/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["v1", "login"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"Password123\"\n}"
+            },
+            "description": "Login and get JWT token via REST"
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/v1/logout",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["v1", "logout"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{token}}\"\n}"
+            },
+            "description": "Logout and invalidate token via REST"
+          }
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/v1/reset-password",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["v1", "reset-password"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\"\n}"
+            },
+            "description": "Request password reset via REST"
+          }
+        },
+        {
+          "name": "Reset Password Confirm",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/v1/reset-password/confirm",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["v1", "reset-password", "confirm"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"reset-token-from-server-output\",\n  \"new_password\": \"NewPassword123\"\n}"
+            },
+            "description": "Confirm password reset via REST"
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Management",
+      "item": [
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/v1/profile/{{user_id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["v1", "profile", "{{user_id}}"]
+            },
+            "description": "Get user profile via REST"
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/v1/profile/{{user_id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["v1", "profile", "{{user_id}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"{{user_id}}\",\n  \"name\": \"John Updated Doe\",\n  \"email\": \"john.updated@example.com\"\n}"
+            },
+            "description": "Update user profile via REST"
+          }
+        },
+        {
+          "name": "Delete Profile",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/v1/profile/{{user_id}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["v1", "profile", "{{user_id}}"]
+            },
+            "description": "Delete user profile via REST"
+          }
+        },
+        {
+          "name": "List Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/v1/users?page=1&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["v1", "users"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" }
+              ]
+            },
+            "description": "List users with pagination and filtering via REST"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "token", "value": "", "type": "string" },
+    { "key": "user_id", "value": "", "type": "string" }
+  ]
+}

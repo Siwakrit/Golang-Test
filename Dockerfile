@@ -27,6 +27,7 @@ COPY --from=builder /app/user-service .
 
 # Expose the port
 EXPOSE 50051
+EXPOSE 8080
 
 # Run the service
 CMD ["./user-service"]

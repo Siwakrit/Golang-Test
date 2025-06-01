@@ -11,6 +11,7 @@ import (
 	"github.com/yourusername/internal/auth"
 	"github.com/yourusername/internal/config"
 	"github.com/yourusername/internal/db"
+	"github.com/yourusername/internal/gateway"
 	"github.com/yourusername/internal/middleware"
 	"github.com/yourusername/internal/services/user"
 )
@@ -48,13 +49,21 @@ func main() {
 	// Enable reflection for tools like grpcurl
 	reflection.Register(grpcServer)
 
-	// Start listening
-	listener, err := net.Listen("tcp", cfg.Port)
-	if err != nil {
-		log.Fatalf("Failed to listen: %v", err)
-	}
-	log.Printf("🚀 Server started on port %s", cfg.Port)
-	if err := grpcServer.Serve(listener); err != nil {
-		log.Fatalf("❌ Failed to serve: %v", err)
+	// Start gRPC server in a goroutine
+	go func() {
+		listener, err := net.Listen("tcp", cfg.Port)
+		if err != nil {
+			log.Fatalf("Failed to listen: %v", err)
+		}
+		log.Printf("🚀 gRPC server started on port %s", cfg.Port)
+		if err := grpcServer.Serve(listener); err != nil {
+			log.Fatalf("❌ Failed to serve: %v", err)
+		}
+	}()
+
+	// Start HTTP REST gateway
+	httpAddr := ":8080" // Default REST port
+	if err := gateway.RunGatewayServer(cfg.Port, httpAddr); err != nil {
+		log.Fatalf("❌ Failed to start gRPC-Gateway: %v", err)
 	}
 }

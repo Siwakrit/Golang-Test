@@ -3,6 +3,8 @@ package proto;
 
 option go_package = "github.com/yourusername/api/proto";
 
+import "google/api/annotations.proto";
+
 // Common empty response
 message Empty {}
 
@@ -76,15 +78,56 @@ message ListUsersResponse {
 // The main service definition
 service UserService {
   // Auth endpoints
-  rpc Login(LoginRequest) returns (LoginResponse);
-  rpc Register(RegisterRequest) returns (User);
-  rpc Logout(LogoutRequest) returns (Empty);
-  rpc ResetPassword(ResetPasswordRequest) returns (Empty);
-  rpc ResetPasswordConfirm(ResetPasswordConfirmRequest) returns (Empty);
-  
+  rpc Login(LoginRequest) returns (LoginResponse) {
+    option (google.api.http) = {
+      post: "/v1/login"
+      body: "*"
+    };
+  }
+  rpc Register(RegisterRequest) returns (User) {
+    option (google.api.http) = {
+      post: "/v1/register"
+      body: "*"
+    };
+  }
+  rpc Logout(LogoutRequest) returns (Empty) {
+    option (google.api.http) = {
+      post: "/v1/logout"
+      body: "*"
+    };
+  }
+  rpc ResetPassword(ResetPasswordRequest) returns (Empty) {
+    option (google.api.http) = {
+      post: "/v1/reset-password"
+      body: "*"
+    };
+  }
+  rpc ResetPasswordConfirm(ResetPasswordConfirmRequest) returns (Empty) {
+    option (google.api.http) = {
+      post: "/v1/reset-password/confirm"
+      body: "*"
+    };
+  }
   // User management
-  rpc GetProfile(GetProfileRequest) returns (User);
-  rpc UpdateProfile(UpdateProfileRequest) returns (User);
-  rpc DeleteProfile(DeleteProfileRequest) returns (Empty);
-  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
+  rpc GetProfile(GetProfileRequest) returns (User) {
+    option (google.api.http) = {
+      get: "/v1/profile/{user_id}"
+    };
+  }
+  rpc UpdateProfile(UpdateProfileRequest) returns (User) {
+    option (google.api.http) = {
+      put: "/v1/profile/{user_id}"
+      body: "*"
+    };
+  }
+  rpc DeleteProfile(DeleteProfileRequest) returns (Empty) {
+    option (google.api.http) = {
+      delete: "/v1/profile/{user_id}"
+    };
+  }
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {
+    option (google.api.http) = {
+      get: "/v1/users"
+    };
+  }
 }

@@ -1,36 +1,58 @@
 # User Management API
 
-A gRPC-based user management service with JWT authentication and MongoDB backend. This project provides a complete implementation of a user management system using modern technologies and best practices.
+> *Read this in [Thai (docs/README_TH.md)](docs/README_TH.md)*
 
-## Features
+A complete gRPC-based user management service with JWT authentication and MongoDB backend. This project demonstrates modern Go programming practices, clean architecture principles, and provides robust user management capabilities.
 
-- User authentication with JWT
-- User registration with password hashing
-- User profile management (create, read, update, delete)
-- Password reset functionality
-- Rate limiting for login attempts (3-5 attempts per minute)
-- Pagination and filtering for user listing
-- Secure token invalidation and blacklisting
+## ✨ Features
 
-## Tech Stack
+- **Authentication System**
+  - Secure JWT-based authentication
+  - Token validation and refresh
+  - Logout functionality with token invalidation
 
-- **Protocol**: gRPC - A high-performance RPC framework by Google
-- **Database**: MongoDB - A NoSQL document database
-- **Programming Language**: Golang - A statically typed compiled language
-- **Authentication**: JWT (JSON Web Tokens) - For secure authentication
-- **Password Hashing**: bcrypt - Industry standard for secure password storage
-- **Environment Management**: godotenv - For loading configuration from .env files
+- **User Management**
+  - User registration with email validation
+  - Profile management (create, read, update, delete)
+  - Password hashing using bcrypt
+  - Password reset functionality
 
-## Prerequisites
+- **Security Features**
+  - Rate limiting for API requests (configurable, default 5 req/min)
+  - Protection against brute force attacks
+  - Token blacklisting
+  - Input validation and sanitization
 
-Before you begin, ensure you have installed:
+- **API Features**
+  - Full gRPC implementation with reflection
+  - REST API gateway using gRPC Gateway
+  - Pagination and filtering for user listing
+  - Comprehensive error handling
 
-- **Go**: Version 1.16+ (This project uses Go 1.23.4)
-  - Download from [golang.org](https://golang.org/dl/)
-  - Verify installation with `go version`
+## 🔧 Tech Stack
 
-- **MongoDB**: Community Edition 
-  - Download from [mongodb.com](https://www.mongodb.com/try/download/community)
+- **Transport Layer**
+  - [gRPC](https://grpc.io/) - High-performance RPC framework
+  - [Protocol Buffers](https://developers.google.com/protocol-buffers) - Language-neutral interface definition
+  - [gRPC Gateway](https://github.com/grpc-ecosystem/grpc-gateway) - RESTful JSON API from gRPC service
+
+- **Backend**
+  - [Go 1.23+](https://golang.org/) - Modern, fast, statically typed language
+  - [MongoDB](https://www.mongodb.com/) - NoSQL document database
+  - [JWT](https://github.com/golang-jwt/jwt) - JSON Web Tokens for authentication
+
+- **Development & Operations**
+  - [Docker](https://www.docker.com/) - Containerization
+  - [Docker Compose](https://docs.docker.com/compose/) - Multi-container deployment
+
+## 🚀 Getting Started
+
+> **Note**: For a Thai version of this guide, please see [docs/README_TH.md](docs/README_TH.md)
+
+### Prerequisites
+
+- **Go 1.23+** - [Download and install Go](https://golang.org/dl/)
+- **MongoDB** - [Download and install MongoDB](https://www.mongodb.com/try/download/community)
   - Ensure the MongoDB service is running (on Windows, check Services app)
   - Verify installation with `mongod --version`
 
@@ -49,48 +71,78 @@ Before you begin, ensure you have installed:
   - Add to PATH
   - Verify installation with `grpcurl --version`
 
-## Project Structure
+## 📁 Project Structure
 
 ```
-├── api/               # API definitions
-│   └── proto/         # Protocol Buffers definitions
-├── cmd/               # Application entry points
-│   └── server/        # gRPC server implementation
-├── docs/              # Documentation files
-├── internal/          # Private application code
-│   ├── auth/          # Authentication logic
-│   │   └── context.go # Authentication context functions
-│   ├── config/        # Configuration management
-│   ├── db/            # Database connectivity
-│   ├── middleware/    # gRPC interceptors
-│   ├── models/        # Data models
-│   ├── services/      # Business logic
-│   │   └── user/      # User-related service implementations
-│   │       ├── service.go       # User service initialization
-│   │       ├── auth.go          # Authentication functions
-│   │       ├── profile.go       # Profile management
-│   │       ├── registration.go  # User registration
-│   │       ├── list.go          # User listing functions
-│   │       ├── password.go      # Password reset functionality
-│   │       └── utils.go         # User-service specific utilities
-│   └── utils/         # Utility functions and helpers
-│       ├── constants.go  # Application constants
-│       ├── token.go      # Token management utilities
-│       └── validation.go # Input validation utilities
-├── test/              # Test files
-├── .env               # Environment variables (create this)
-├── docker-compose.yml # Docker Compose configuration
-├── Dockerfile         # Docker image definition
-├── go.mod             # Go module definition
-├── go.sum             # Go module checksums
-└── README.md          # Project documentation
+├── api/                           # API definitions
+│   ├── package.go                 # Package documentation
+│   ├── proto/                     # Protocol Buffers definitions
+│   │   ├── user_service_grpc.pb.go  # Generated gRPC code
+│   │   ├── user_service.pb.go     # Generated protobuf code
+│   │   ├── user_service.pb.gw.go  # Generated REST gateway code
+│   │   └── user_service.proto     # Protocol definitions file
+│   └── third_party/              # Third-party proto files
+│       └── google/               # Google proto files
+│           ├── api/              # Google API proto files
+│           │   ├── annotations.proto  # HTTP annotations
+│           │   └── http.proto    # HTTP proto definitions
+│           └── protobuf/         # Google protobuf files
+│               └── descriptor.proto  # Protocol descriptor
+├── cmd/                          # Application entry points
+│   └── server/                   # Server application
+│       └── main.go               # Main server entry point
+├── docs/                         # Documentation files
+│   ├── QUICK_COMMANDS.md         # Quick command reference
+│   ├── README_TH.md              # Thai documentation
+│   └── SETUP_GUIDE.md            # Detailed setup guide
+├── internal/                     # Private application code
+│   ├── auth/                     # Authentication components
+│   │   ├── context.go            # Authentication context functions
+│   │   └── jwt.go                # JWT implementation
+│   ├── config/                   # Configuration management
+│   │   └── config.go             # App configuration
+│   ├── db/                       # Database connectivity
+│   │   └── mongodb.go            # MongoDB implementation
+│   ├── gateway/                  # REST API gateway
+│   │   └── gateway.go            # Gateway implementation
+│   ├── middleware/               # gRPC interceptors
+│   │   ├── auth_interceptor.go   # Authentication middleware
+│   │   └── rate_limiter.go       # Rate limiting middleware
+│   ├── models/                   # Data models
+│   │   └── user.go               # User model
+│   ├── services/                 # Business logic
+│   │   └── user/                 # User service
+│   │       ├── auth.go           # Authentication methods
+│   │       ├── list.go           # User listing methods
+│   │       ├── password.go       # Password management
+│   │       ├── profile.go        # Profile management
+│   │       ├── registration.go   # User registration
+│   │       ├── service.go        # Service initialization
+│   │       └── utils.go          # Service utilities
+│   └── utils/                    # Utility functions
+│       ├── constants.go          # System constants
+│       ├── token.go              # Token utilities
+│       └── validation.go         # Input validation
+├── scripts/                      # Build/deployment scripts
+├── test/                         # Test files
+│   └── api/                      # API tests
+│       ├── user-management-grpc.postman_collection.json  # Postman gRPC tests
+│       └── user-management-rest.postman_collection.json  # Postman REST tests
+├── docker-compose.yml            # Docker Compose configuration
+├── Dockerfile                    # Docker image definition
+├── go.mod                        # Go module definition
+├── go.sum                        # Go dependency checksums
+├── server.exe                    # Compiled server binary
+└── README.md                     # This documentation
 ```
 
-### User Service Architecture
+## 🏗️ Architecture
 
-The user service follows domain-driven design principles, organizing code by business functionality rather than technical layers. This approach improves code maintainability, readability, and scalability:
+The user service follows domain-driven design principles, organizing code by business functionality rather than technical layers:
 
-- **service.go**: Contains the service initialization code, interface definitions, and structure that holds dependencies
+### 🏗️ User Service Architecture
+
+- **service.go**: Contains the service initialization code, interface definitions, and dependency injection
 - **auth.go**: Implements authentication functionality including login and token verification
 - **profile.go**: Handles user profile operations (create, read, update, delete)
 - **registration.go**: Manages user registration flow including email verification
@@ -98,13 +150,27 @@ The user service follows domain-driven design principles, organizing code by bus
 - **password.go**: Contains password reset functionality
 - **utils.go**: User-specific utility functions
 
+### 📐 Architecture Layers
+
+1. **API Layer** - Protocol Buffers and gRPC definitions
+2. **Service Layer** - Business logic implementation
+3. **Data Layer** - MongoDB connectivity and data models
+4. **Utility Layer** - Shared functions and constants
+
+### 🧩 Key Components
+
+- **JWT Authentication**: Secure token-based authentication
+- **Middleware Interceptors**: Authentication and rate limiting
+- **REST Gateway**: HTTP API access via gRPC-gateway
+- **MongoDB Repository**: Data storage and retrieval
+
 The service relies on shared functionality from other packages:
 - **internal/auth/context.go**: For authentication context handling
 - **internal/utils/validation.go**: For input validation
 - **internal/utils/token.go**: For token generation and management
 - **internal/utils/constants.go**: For system-wide constants
 
-## Recent Refactoring
+## 🔄 Recent Refactoring
 
 This project recently underwent significant refactoring to improve code organization and maintainability:
 
@@ -127,7 +193,7 @@ This project recently underwent significant refactoring to improve code organiza
 
 The refactoring improves code maintainability, reduces technical debt, and makes the codebase more scalable for future development.
 
-### Pending Tasks
+### 📋 Pending Tasks
 
 The following tasks are planned for future improvement:
 
@@ -136,18 +202,18 @@ The following tasks are planned for future improvement:
 3. **Implement Tests**: Add unit and integration tests for the new structure
 4. **Enhance Validation**: Strengthen input validation across all endpoints
 
-## Setup Instructions
+## ⚙️ Setup Instructions
 
 Follow these steps to set up the project:
 
-### 1. Clone the Repository
+### 1️⃣ Clone the Repository
 
 ```bash
 git clone https://github.com/yourusername/Golang-Test.git
 cd Golang-Test
 ```
 
-### 2. Install Dependencies
+### 2️⃣ Install Dependencies
 
 The project uses Go modules for dependency management:
 
@@ -157,7 +223,7 @@ go mod tidy
 
 This will download all required dependencies based on the go.mod file.
 
-### 3. Set up the Environment Variables
+### 3️⃣ Set up the Environment Variables
 
 Create a `.env` file in the root directory with the following content:
 
@@ -195,7 +261,7 @@ set RATE_LIMIT=5
 set RATE_LIMIT_WINDOW=1m
 ```
 
-### 4. Set up MongoDB
+### 4️⃣ Set up MongoDB
 
 Ensure MongoDB is running on your machine:
 
@@ -207,7 +273,7 @@ You can verify MongoDB is running with:
 mongosh --eval "db.version()"
 ```
 
-### 5. Generate Protocol Buffer Code
+### 5️⃣ Generate Protocol Buffer Code
 
 If you've made changes to the `.proto` files or are setting up for the first time:
 
@@ -217,7 +283,7 @@ protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=p
 
 This generates the necessary Go code from your Protocol Buffers definitions.
 
-### 6. Build and Run the Service
+### 6️⃣ Build and Run the Service
 
 Build the application:
 
@@ -233,9 +299,7 @@ Run the compiled binary:
 
 You should see output indicating the server is running on the specified port (default: 50051) and has connected to MongoDB successfully.
 
-## Testing the API
-
-### Using gRPCurl
+## 🧪 Testing the API
 
 [gRPCurl](https://github.com/fullstorydev/grpcurl) is a command-line tool that lets you interact with gRPC servers. Below are examples of how to test each endpoint:
 
@@ -366,7 +430,7 @@ Expected response:
 }
 ```
 
-### Using Postman
+### 🧰 Using Postman
 
 The repository includes a Postman collection file (`user-management-grpc.postman_collection.json`) that you can import into Postman to test the API:
 
@@ -376,9 +440,9 @@ The repository includes a Postman collection file (`user-management-grpc.postman
    - `token`: Your JWT token after login
 3. Execute the requests in sequence, starting with Register and Login
 
-## API Documentation
+## 📝 API Documentation
 
-### Authentication Services
+### 🔐 Authentication Services
 
 #### Register
 - **Endpoint**: `/proto.UserService/Register`
@@ -415,7 +479,7 @@ The repository includes a Postman collection file (`user-management-grpc.postman
 - **Description**: Completes the password reset process using the provided token
 - **Security**: Validates token authenticity and expiration
 
-### User Management Services
+### 👤 User Management Services
 
 #### GetProfile
 - **Endpoint**: `/proto.UserService/GetProfile`
@@ -445,16 +509,16 @@ The repository includes a Postman collection file (`user-management-grpc.postman
 - **Description**: Retrieves a paginated list of users with optional filtering
 - **Security**: Requires authentication
 
-## Architecture Overview
+## 🏛️ Architecture Overview
 
 This service follows a clean architecture approach with separation of concerns:
 
-### API Layer
+### 📡 API Layer
 - **Protocol**: gRPC with Protocol Buffers
 - **Location**: `/api/proto/user_service.proto`
 - **Purpose**: Defines service contracts, message formats, and communication protocols
 
-### Service Layer
+### 🛠️ Service Layer
 - **Location**: `/internal/services/user/`
 - **Purpose**: Implements business logic and validation
 - **Features**: Authentication, user management, and password reset functionality
@@ -467,7 +531,7 @@ This service follows a clean architecture approach with separation of concerns:
   - `password.go`: Password reset functionality
   - `utils.go`: User-specific utility functions
 
-### Data Layer
+### 💾 Data Layer
 - **Location**: `/internal/db/mongodb.go`, `/internal/models/`
 - **Purpose**: Database interaction and data models
 - **Components**:
@@ -475,7 +539,7 @@ This service follows a clean architecture approach with separation of concerns:
   - CRUD operations
   - Data models for users, tokens, and password resets
 
-### Authentication
+### 🔑 Authentication
 - **Location**: `/internal/auth/jwt.go`, `/internal/auth/context.go`
 - **Purpose**: JWT token generation, validation, and context management
 - **Features**:
@@ -484,7 +548,7 @@ This service follows a clean architecture approach with separation of concerns:
   - Claims extraction
   - Authentication context handling (getUserIDFromContext)
 
-### Middleware
+### 🔄 Middleware
 
 - **Location**: `/internal/middleware/`
 - **Purpose**: gRPC interceptors for cross-cutting concerns
@@ -492,7 +556,7 @@ This service follows a clean architecture approach with separation of concerns:
   - Authentication interceptor for JWT validation
   - Rate limiting interceptor for login attempts
 
-### Utilities
+### 🔧 Utilities
 
 - **Location**: `/internal/utils/`
 - **Purpose**: Shared utility functions used across services
@@ -501,12 +565,12 @@ This service follows a clean architecture approach with separation of concerns:
   - `token.go`: Secure token generation and management
   - `validation.go`: Input validation for emails, passwords, and other user inputs
 
-### Configuration
+### ⚙️ Configuration
 - **Location**: `/internal/config/config.go`
 - **Purpose**: Environment-based configuration management
 - **Features**: Loads settings from environment variables or .env file
 
-## Security Features
+## 🔒 Security Features
 
 The service implements several security best practices:
 
@@ -528,7 +592,7 @@ The service implements several security best practices:
   - Soft delete implementation (data is never permanently removed)
   - Email format validation
 
-## Scaling Considerations
+## 📊 Scaling Considerations
 
 The service is designed to handle:
 
@@ -545,11 +609,11 @@ The service is designed to handle:
   - Stateless design allows for multiple instances behind a load balancer
   - MongoDB supports sharding for database scaling
 
-## Docker Deployment
+## 🐳 Docker Deployment
 
 The project includes Docker configuration for easy deployment.
 
-### Docker Setup
+### 🛠️ Docker Setup
 
 The `Dockerfile` builds a lightweight container with the compiled Go application:
 
@@ -562,7 +626,7 @@ FROM alpine:latest
 ...
 ```
 
-### Docker Compose
+### 📦 Docker Compose
 
 The `docker-compose.yml` file sets up both the application and MongoDB:
 
@@ -577,7 +641,7 @@ services:
     ...
 ```
 
-### Running with Docker Compose
+### 🚀 Running with Docker Compose
 
 To run the service using Docker Compose:
 
@@ -594,17 +658,17 @@ docker-compose down
 
 This setup provides a consistent and isolated environment for development, testing, and production.
 
-## Project Requirements Fulfillment
+## ✅ Project Requirements Fulfillment
 
 This project fulfills the following requirements:
 
-### Tech Stack
+### 🛠️ Tech Stack
 - ✅ gRPC Protocol
 - ✅ MongoDB Database
 - ✅ Golang Programming Language
 - ✅ JWT Authentication
 
-### Core API Requirements
+### 📋 Core API Requirements
 - ✅ Complete Authentication API (Login, Logout, Register)
 - ✅ User Profile Management (CRUD operations)
 - ✅ Password Reset Functionality
@@ -612,13 +676,13 @@ This project fulfills the following requirements:
 - ✅ Proper Input Validation
 - ✅ Secure Password Storage
 
-### Scaling Requirements
+### 📈 Scaling Requirements
 - ✅ Handles 1,000 concurrent users
 - ✅ Processes ~100 requests per second
 - ✅ Supports ~100,000 user records
 - ✅ Maintains response times under 200ms
 
-## Conclusion
+## 🏁 Conclusion
 
 This User Management API provides a secure, scalable foundation for user authentication and profile management. The gRPC implementation offers high performance, while MongoDB provides flexible data storage. JWT authentication ensures secure access control, and the clean architecture makes the code maintainable and extensible.
 
@@ -631,3 +695,131 @@ The recent refactoring has significantly improved the project structure by:
 5. **Following Best Practices**: Adhering to modern Go project structure and domain-driven design principles
 
 For questions or contributions, please open an issue or pull request on the GitHub repository.
+
+## 🧵 Implementation Details
+
+### ⚡ Rate Limiting Implementation
+
+Rate limiting is implemented using a token bucket algorithm with the following components:
+
+- **RateLimiter Struct** (`internal/middleware/rate_limiter.go`):
+  ```go
+  type RateLimiter struct {
+      requests  map[string]*TokenBucket
+      maxTokens int
+      refillInterval time.Duration
+      mu        sync.Mutex
+  }
+  ```
+  
+- **Middleware Interceptor**:
+  ```go
+  func RateLimitInterceptor(limiter *RateLimiter) grpc.UnaryServerInterceptor {
+      return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+          // Rate limit check implementation
+          ip, _ := getClientIP(ctx)
+          if !limiter.Allow(ip) {
+              return nil, status.Errorf(codes.ResourceExhausted, "rate limit exceeded")
+          }
+          return handler(ctx, req)
+      }
+  }
+  ```
+
+### 🔄 Authentication Flow
+
+1. **Registration Process**:
+   - User data validation
+   - Password hashing with bcrypt
+   - User creation in MongoDB
+   - Return user info (without password)
+
+2. **Login Process**:
+   - Find user by email
+   - Verify password hash
+   - Generate JWT token with claims
+   - Return token and user ID
+
+3. **Request Authentication**:
+   - Extract token from gRPC metadata
+   - Validate token signature and expiration
+   - Extract user ID from claims
+   - Add user ID to request context
+   - Authorize based on user ID and resource
+
+### 📊 Key MongoDB Schema Designs
+
+**User Collection**:
+```json
+{
+  "_id": ObjectId("64a..."),
+  "name": "User Name",
+  "email": "user@example.com",
+  "password_hash": "$2a$10$...",
+  "created_at": ISODate("2025-06-01T10:00:00Z"),
+  "updated_at": ISODate("2025-06-01T10:00:00Z"),
+  "is_deleted": false
+}
+```
+
+**Token Blacklist Collection**:
+```json
+{
+  "_id": ObjectId("64b..."),
+  "token": "eyJhbGciOiJIUzI1...",
+  "expiration": ISODate("2025-06-02T10:00:00Z")
+}
+```
+
+**Reset Token Collection**:
+```json
+{
+  "_id": ObjectId("64c..."),
+  "user_id": ObjectId("64a..."),
+  "token": "reset-token-value",
+  "expiration": ISODate("2025-06-02T10:00:00Z")
+}
+```
+
+### 🌐 REST Gateway Implementation
+
+The REST gateway is implemented using the [gRPC-Gateway](https://github.com/grpc-ecosystem/grpc-gateway) project, which generates a reverse-proxy server from gRPC service definitions. This is set up in `internal/gateway/gateway.go`:
+
+```go
+func RunGatewayServer(grpcAddr, httpAddr string) error {
+    // Create a new context
+    ctx := context.Background()
+    ctx, cancel := context.WithCancel(ctx)
+    defer cancel()
+
+    // Register gRPC server endpoint
+    mux := runtime.NewServeMux()
+    opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
+    
+    err := proto.RegisterUserServiceHandlerFromEndpoint(ctx, mux, grpcAddr, opts)
+    if err != nil {
+        return err
+    }
+
+    // Start HTTP server (and proxy calls to gRPC server endpoint)
+    log.Printf("🌐 REST Gateway started on %s", httpAddr)    return http.ListenAndServe(httpAddr, mux)
+}
+```
+
+For more detailed implementation information, refer to the code files directly or the [setup guide](docs/SETUP_GUIDE.md).
+
+## 🔄 Future Improvements
+
+The following tasks are planned for future improvement:
+
+1. **Documentation**: Create comprehensive API documentation
+2. **Testing**: Add unit and integration tests
+3. **Validation**: Strengthen input validation across all endpoints
+4. **Monitoring**: Add metrics and observability tools
+
+## 📚 Additional Resources
+
+For detailed information, check:
+- [Setup Guide](docs/SETUP_GUIDE.md) - Detailed installation instructions
+- [Quick Commands](docs/QUICK_COMMANDS.md) - Common operations reference
+- [Thai Documentation](docs/README_TH.md) - Thai language documentation
