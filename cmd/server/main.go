@@ -12,7 +12,7 @@ import (
 	"github.com/yourusername/internal/config"
 	"github.com/yourusername/internal/db"
 	"github.com/yourusername/internal/middleware"
-	"github.com/yourusername/internal/services"
+	"github.com/yourusername/internal/services/user"
 )
 
 func main() {
@@ -35,7 +35,6 @@ func main() {
 
 	// Create auth interceptor
 	authInterceptor := middleware.NewAuthInterceptor(jwtManager, mongoDB)
-
 	// Create gRPC server with middlewares
 	grpcServer := grpc.NewServer(
 		grpc.ChainUnaryInterceptor(
@@ -43,7 +42,7 @@ func main() {
 			authInterceptor.Unary(),
 		),
 	) // Create and register user service
-	userService := services.NewUserService(mongoDB, jwtManager)
+	userService := user.NewService(mongoDB, jwtManager)
 	proto.RegisterUserServiceServer(grpcServer, userService)
 
 	// Enable reflection for tools like grpcurl
