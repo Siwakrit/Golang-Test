@@ -1,0 +1,38 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+user-service
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Dependency directories
+vendor/
+
+# IDE directories
+.idea/
+.vscode/
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Log files
+*.log
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Script files that can be regenerated
+run-docker.ps1
+run-local.ps1

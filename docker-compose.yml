@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: gRPC-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=usermanagement
+    networks:
+      - app-network
+    restart: always
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  user-service:
+    container_name: gRPC-user-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "50051:50051"
+    environment:
+      - PORT=:50051
+      - MONGO_URI=mongodb://mongo:27017
+      - DB_NAME=usermanagement
+      - JWT_SECRET_KEY=your-secret-key
+      - TOKEN_DURATION=24h
+      - RATE_LIMIT=5
+      - RATE_LIMIT_WINDOW=1m
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongo_data:

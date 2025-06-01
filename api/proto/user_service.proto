@@ -1,0 +1,90 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "github.com/yourusername/api/proto";
+
+// Common empty response
+message Empty {}
+
+// Auth related messages
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string token = 1;
+  string user_id = 2;
+}
+
+message RegisterRequest {
+  string email = 1;
+  string password = 2;
+  string name = 3;
+}
+
+message LogoutRequest {
+  string token = 1;
+}
+
+message ResetPasswordRequest {
+  string email = 1;
+}
+
+message ResetPasswordConfirmRequest {
+  string token = 1;
+  string new_password = 2;
+}
+
+// User related messages
+message User {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  string created_at = 4;
+  string updated_at = 5;
+}
+
+message GetProfileRequest {
+  string user_id = 1;
+}
+
+message UpdateProfileRequest {
+  string user_id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message DeleteProfileRequest {
+  string user_id = 1;
+}
+
+message ListUsersRequest {
+  string name_filter = 1;
+  string email_filter = 2;
+  int32 page = 3;
+  int32 limit = 4;
+}
+
+message ListUsersResponse {
+  repeated User users = 1;
+  int32 total = 2;
+  int32 page = 3;
+  int32 limit = 4;
+}
+
+// The main service definition
+service UserService {
+  // Auth endpoints
+  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc Register(RegisterRequest) returns (User);
+  rpc Logout(LogoutRequest) returns (Empty);
+  rpc ResetPassword(ResetPasswordRequest) returns (Empty);
+  rpc ResetPasswordConfirm(ResetPasswordConfirmRequest) returns (Empty);
+  
+  // User management
+  rpc GetProfile(GetProfileRequest) returns (User);
+  rpc UpdateProfile(UpdateProfileRequest) returns (User);
+  rpc DeleteProfile(DeleteProfileRequest) returns (Empty);
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
+}

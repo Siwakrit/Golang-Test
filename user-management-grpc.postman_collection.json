@@ -1,0 +1,294 @@
+{
+  "info": {
+    "name": "User Management gRPC API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "A collection for testing the User Management gRPC API"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "GRPC",
+            "header": [],
+            "url": {
+              "raw": "localhost:50051",
+              "host": ["localhost"],
+              "port": "50051"
+            },
+            "description": "Register a new user",
+            "body": {
+              "mode": "grpc",
+              "service": "proto.UserService",
+              "method": "Register",
+              "grpc_descriptor": "{\"nested\":{\"proto\":{\"nested\":{\"Empty\":{\"fields\":{}},\"LoginRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1},\"password\":{\"type\":\"string\",\"id\":2}}},\"LoginResponse\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"user_id\":{\"type\":\"string\",\"id\":2}}},\"RegisterRequest\":{\"fields\":{\"name\":{\"type\":\"string\",\"id\":1},\"email\":{\"type\":\"string\",\"id\":2},\"password\":{\"type\":\"string\",\"id\":3}}},\"LogoutRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1}}},\"GetProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"UpdateProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3}}},\"DeleteProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordConfirmRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"new_password\":{\"type\":\"string\",\"id\":2}}},\"ListUsersRequest\":{\"fields\":{\"page\":{\"type\":\"int32\",\"id\":1},\"limit\":{\"type\":\"int32\",\"id\":2},\"name_filter\":{\"type\":\"string\",\"id\":3},\"email_filter\":{\"type\":\"string\",\"id\":4}}},\"ListUsersResponse\":{\"fields\":{\"users\":{\"rule\":\"repeated\",\"type\":\"User\",\"id\":1},\"total\":{\"type\":\"int32\",\"id\":2},\"page\":{\"type\":\"int32\",\"id\":3},\"limit\":{\"type\":\"int32\",\"id\":4}}},\"User\":{\"fields\":{\"id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3},\"created_at\":{\"type\":\"string\",\"id\":4},\"updated_at\":{\"type\":\"string\",\"id\":5}}},\"UserService\":{\"methods\":{\"Login\":{\"requestType\":\"LoginRequest\",\"responseType\":\"LoginResponse\"},\"Register\":{\"requestType\":\"RegisterRequest\",\"responseType\":\"User\"},\"Logout\":{\"requestType\":\"LogoutRequest\",\"responseType\":\"Empty\"},\"ResetPassword\":{\"requestType\":\"ResetPasswordRequest\",\"responseType\":\"Empty\"},\"ResetPasswordConfirm\":{\"requestType\":\"ResetPasswordConfirmRequest\",\"responseType\":\"Empty\"},\"GetProfile\":{\"requestType\":\"GetProfileRequest\",\"responseType\":\"User\"},\"UpdateProfile\":{\"requestType\":\"UpdateProfileRequest\",\"responseType\":\"User\"},\"DeleteProfile\":{\"requestType\":\"DeleteProfileRequest\",\"responseType\":\"Empty\"},\"ListUsers\":{\"requestType\":\"ListUsersRequest\",\"responseType\":\"ListUsersResponse\"}}}}}}",
+              "grpc_type": "unary",
+              "grpc_request": {
+                "name": "John Doe",
+                "email": "john@example.com",
+                "password": "Password123"
+              }
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "GRPC",
+            "header": [],
+            "url": {
+              "raw": "localhost:50051",
+              "host": ["localhost"],
+              "port": "50051"
+            },
+            "description": "Authenticate a user and get a JWT token",
+            "body": {
+              "mode": "grpc",
+              "service": "proto.UserService",
+              "method": "Login",
+              "grpc_descriptor": "{\"nested\":{\"proto\":{\"nested\":{\"Empty\":{\"fields\":{}},\"LoginRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1},\"password\":{\"type\":\"string\",\"id\":2}}},\"LoginResponse\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"user_id\":{\"type\":\"string\",\"id\":2}}},\"RegisterRequest\":{\"fields\":{\"name\":{\"type\":\"string\",\"id\":1},\"email\":{\"type\":\"string\",\"id\":2},\"password\":{\"type\":\"string\",\"id\":3}}},\"LogoutRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1}}},\"GetProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"UpdateProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3}}},\"DeleteProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordConfirmRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"new_password\":{\"type\":\"string\",\"id\":2}}},\"ListUsersRequest\":{\"fields\":{\"page\":{\"type\":\"int32\",\"id\":1},\"limit\":{\"type\":\"int32\",\"id\":2},\"name_filter\":{\"type\":\"string\",\"id\":3},\"email_filter\":{\"type\":\"string\",\"id\":4}}},\"ListUsersResponse\":{\"fields\":{\"users\":{\"rule\":\"repeated\",\"type\":\"User\",\"id\":1},\"total\":{\"type\":\"int32\",\"id\":2},\"page\":{\"type\":\"int32\",\"id\":3},\"limit\":{\"type\":\"int32\",\"id\":4}}},\"User\":{\"fields\":{\"id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3},\"created_at\":{\"type\":\"string\",\"id\":4},\"updated_at\":{\"type\":\"string\",\"id\":5}}},\"UserService\":{\"methods\":{\"Login\":{\"requestType\":\"LoginRequest\",\"responseType\":\"LoginResponse\"},\"Register\":{\"requestType\":\"RegisterRequest\",\"responseType\":\"User\"},\"Logout\":{\"requestType\":\"LogoutRequest\",\"responseType\":\"Empty\"},\"ResetPassword\":{\"requestType\":\"ResetPasswordRequest\",\"responseType\":\"Empty\"},\"ResetPasswordConfirm\":{\"requestType\":\"ResetPasswordConfirmRequest\",\"responseType\":\"Empty\"},\"GetProfile\":{\"requestType\":\"GetProfileRequest\",\"responseType\":\"User\"},\"UpdateProfile\":{\"requestType\":\"UpdateProfileRequest\",\"responseType\":\"User\"},\"DeleteProfile\":{\"requestType\":\"DeleteProfileRequest\",\"responseType\":\"Empty\"},\"ListUsers\":{\"requestType\":\"ListUsersRequest\",\"responseType\":\"ListUsersResponse\"}}}}}}",
+              "grpc_type": "unary",
+              "grpc_request": {
+                "email": "john@example.com",
+                "password": "Password123"
+              }
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "GRPC",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:50051",
+              "host": ["localhost"],
+              "port": "50051"
+            },
+            "description": "Logout and invalidate the token",
+            "body": {
+              "mode": "grpc",
+              "service": "proto.UserService",
+              "method": "Logout",
+              "grpc_descriptor": "{\"nested\":{\"proto\":{\"nested\":{\"Empty\":{\"fields\":{}},\"LoginRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1},\"password\":{\"type\":\"string\",\"id\":2}}},\"LoginResponse\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"user_id\":{\"type\":\"string\",\"id\":2}}},\"RegisterRequest\":{\"fields\":{\"name\":{\"type\":\"string\",\"id\":1},\"email\":{\"type\":\"string\",\"id\":2},\"password\":{\"type\":\"string\",\"id\":3}}},\"LogoutRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1}}},\"GetProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"UpdateProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3}}},\"DeleteProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordConfirmRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"new_password\":{\"type\":\"string\",\"id\":2}}},\"ListUsersRequest\":{\"fields\":{\"page\":{\"type\":\"int32\",\"id\":1},\"limit\":{\"type\":\"int32\",\"id\":2},\"name_filter\":{\"type\":\"string\",\"id\":3},\"email_filter\":{\"type\":\"string\",\"id\":4}}},\"ListUsersResponse\":{\"fields\":{\"users\":{\"rule\":\"repeated\",\"type\":\"User\",\"id\":1},\"total\":{\"type\":\"int32\",\"id\":2},\"page\":{\"type\":\"int32\",\"id\":3},\"limit\":{\"type\":\"int32\",\"id\":4}}},\"User\":{\"fields\":{\"id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3},\"created_at\":{\"type\":\"string\",\"id\":4},\"updated_at\":{\"type\":\"string\",\"id\":5}}},\"UserService\":{\"methods\":{\"Login\":{\"requestType\":\"LoginRequest\",\"responseType\":\"LoginResponse\"},\"Register\":{\"requestType\":\"RegisterRequest\",\"responseType\":\"User\"},\"Logout\":{\"requestType\":\"LogoutRequest\",\"responseType\":\"Empty\"},\"ResetPassword\":{\"requestType\":\"ResetPasswordRequest\",\"responseType\":\"Empty\"},\"ResetPasswordConfirm\":{\"requestType\":\"ResetPasswordConfirmRequest\",\"responseType\":\"Empty\"},\"GetProfile\":{\"requestType\":\"GetProfileRequest\",\"responseType\":\"User\"},\"UpdateProfile\":{\"requestType\":\"UpdateProfileRequest\",\"responseType\":\"User\"},\"DeleteProfile\":{\"requestType\":\"DeleteProfileRequest\",\"responseType\":\"Empty\"},\"ListUsers\":{\"requestType\":\"ListUsersRequest\",\"responseType\":\"ListUsersResponse\"}}}}}}",
+              "grpc_type": "unary",
+              "grpc_request": {
+                "token": "{{token}}"
+              }
+            }
+          }
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "GRPC",
+            "header": [],
+            "url": {
+              "raw": "localhost:50051",
+              "host": ["localhost"],
+              "port": "50051"
+            },
+            "description": "Request password reset",
+            "body": {
+              "mode": "grpc",
+              "service": "proto.UserService",
+              "method": "ResetPassword",
+              "grpc_descriptor": "{\"nested\":{\"proto\":{\"nested\":{\"Empty\":{\"fields\":{}},\"LoginRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1},\"password\":{\"type\":\"string\",\"id\":2}}},\"LoginResponse\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"user_id\":{\"type\":\"string\",\"id\":2}}},\"RegisterRequest\":{\"fields\":{\"name\":{\"type\":\"string\",\"id\":1},\"email\":{\"type\":\"string\",\"id\":2},\"password\":{\"type\":\"string\",\"id\":3}}},\"LogoutRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1}}},\"GetProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"UpdateProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3}}},\"DeleteProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordConfirmRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"new_password\":{\"type\":\"string\",\"id\":2}}},\"ListUsersRequest\":{\"fields\":{\"page\":{\"type\":\"int32\",\"id\":1},\"limit\":{\"type\":\"int32\",\"id\":2},\"name_filter\":{\"type\":\"string\",\"id\":3},\"email_filter\":{\"type\":\"string\",\"id\":4}}},\"ListUsersResponse\":{\"fields\":{\"users\":{\"rule\":\"repeated\",\"type\":\"User\",\"id\":1},\"total\":{\"type\":\"int32\",\"id\":2},\"page\":{\"type\":\"int32\",\"id\":3},\"limit\":{\"type\":\"int32\",\"id\":4}}},\"User\":{\"fields\":{\"id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3},\"created_at\":{\"type\":\"string\",\"id\":4},\"updated_at\":{\"type\":\"string\",\"id\":5}}},\"UserService\":{\"methods\":{\"Login\":{\"requestType\":\"LoginRequest\",\"responseType\":\"LoginResponse\"},\"Register\":{\"requestType\":\"RegisterRequest\",\"responseType\":\"User\"},\"Logout\":{\"requestType\":\"LogoutRequest\",\"responseType\":\"Empty\"},\"ResetPassword\":{\"requestType\":\"ResetPasswordRequest\",\"responseType\":\"Empty\"},\"ResetPasswordConfirm\":{\"requestType\":\"ResetPasswordConfirmRequest\",\"responseType\":\"Empty\"},\"GetProfile\":{\"requestType\":\"GetProfileRequest\",\"responseType\":\"User\"},\"UpdateProfile\":{\"requestType\":\"UpdateProfileRequest\",\"responseType\":\"User\"},\"DeleteProfile\":{\"requestType\":\"DeleteProfileRequest\",\"responseType\":\"Empty\"},\"ListUsers\":{\"requestType\":\"ListUsersRequest\",\"responseType\":\"ListUsersResponse\"}}}}}}",
+              "grpc_type": "unary",
+              "grpc_request": {
+                "email": "john@example.com"
+              }
+            }
+          }
+        },
+        {
+          "name": "Reset Password Confirm",
+          "request": {
+            "method": "GRPC",
+            "header": [],
+            "url": {
+              "raw": "localhost:50051",
+              "host": ["localhost"],
+              "port": "50051"
+            },
+            "description": "Confirm password reset with token",
+            "body": {
+              "mode": "grpc",
+              "service": "proto.UserService",
+              "method": "ResetPasswordConfirm",
+              "grpc_descriptor": "{\"nested\":{\"proto\":{\"nested\":{\"Empty\":{\"fields\":{}},\"LoginRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1},\"password\":{\"type\":\"string\",\"id\":2}}},\"LoginResponse\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"user_id\":{\"type\":\"string\",\"id\":2}}},\"RegisterRequest\":{\"fields\":{\"name\":{\"type\":\"string\",\"id\":1},\"email\":{\"type\":\"string\",\"id\":2},\"password\":{\"type\":\"string\",\"id\":3}}},\"LogoutRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1}}},\"GetProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"UpdateProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3}}},\"DeleteProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordConfirmRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"new_password\":{\"type\":\"string\",\"id\":2}}},\"ListUsersRequest\":{\"fields\":{\"page\":{\"type\":\"int32\",\"id\":1},\"limit\":{\"type\":\"int32\",\"id\":2},\"name_filter\":{\"type\":\"string\",\"id\":3},\"email_filter\":{\"type\":\"string\",\"id\":4}}},\"ListUsersResponse\":{\"fields\":{\"users\":{\"rule\":\"repeated\",\"type\":\"User\",\"id\":1},\"total\":{\"type\":\"int32\",\"id\":2},\"page\":{\"type\":\"int32\",\"id\":3},\"limit\":{\"type\":\"int32\",\"id\":4}}},\"User\":{\"fields\":{\"id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3},\"created_at\":{\"type\":\"string\",\"id\":4},\"updated_at\":{\"type\":\"string\",\"id\":5}}},\"UserService\":{\"methods\":{\"Login\":{\"requestType\":\"LoginRequest\",\"responseType\":\"LoginResponse\"},\"Register\":{\"requestType\":\"RegisterRequest\",\"responseType\":\"User\"},\"Logout\":{\"requestType\":\"LogoutRequest\",\"responseType\":\"Empty\"},\"ResetPassword\":{\"requestType\":\"ResetPasswordRequest\",\"responseType\":\"Empty\"},\"ResetPasswordConfirm\":{\"requestType\":\"ResetPasswordConfirmRequest\",\"responseType\":\"Empty\"},\"GetProfile\":{\"requestType\":\"GetProfileRequest\",\"responseType\":\"User\"},\"UpdateProfile\":{\"requestType\":\"UpdateProfileRequest\",\"responseType\":\"User\"},\"DeleteProfile\":{\"requestType\":\"DeleteProfileRequest\",\"responseType\":\"Empty\"},\"ListUsers\":{\"requestType\":\"ListUsersRequest\",\"responseType\":\"ListUsersResponse\"}}}}}}",
+              "grpc_type": "unary",
+              "grpc_request": {
+                "token": "reset-token-from-server-output",
+                "new_password": "NewPassword123"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Management",
+      "item": [
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GRPC",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:50051",
+              "host": ["localhost"],
+              "port": "50051"
+            },
+            "description": "Get user profile",
+            "body": {
+              "mode": "grpc",
+              "service": "proto.UserService",
+              "method": "GetProfile",
+              "grpc_descriptor": "{\"nested\":{\"proto\":{\"nested\":{\"Empty\":{\"fields\":{}},\"LoginRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1},\"password\":{\"type\":\"string\",\"id\":2}}},\"LoginResponse\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"user_id\":{\"type\":\"string\",\"id\":2}}},\"RegisterRequest\":{\"fields\":{\"name\":{\"type\":\"string\",\"id\":1},\"email\":{\"type\":\"string\",\"id\":2},\"password\":{\"type\":\"string\",\"id\":3}}},\"LogoutRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1}}},\"GetProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"UpdateProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3}}},\"DeleteProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordConfirmRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"new_password\":{\"type\":\"string\",\"id\":2}}},\"ListUsersRequest\":{\"fields\":{\"page\":{\"type\":\"int32\",\"id\":1},\"limit\":{\"type\":\"int32\",\"id\":2},\"name_filter\":{\"type\":\"string\",\"id\":3},\"email_filter\":{\"type\":\"string\",\"id\":4}}},\"ListUsersResponse\":{\"fields\":{\"users\":{\"rule\":\"repeated\",\"type\":\"User\",\"id\":1},\"total\":{\"type\":\"int32\",\"id\":2},\"page\":{\"type\":\"int32\",\"id\":3},\"limit\":{\"type\":\"int32\",\"id\":4}}},\"User\":{\"fields\":{\"id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3},\"created_at\":{\"type\":\"string\",\"id\":4},\"updated_at\":{\"type\":\"string\",\"id\":5}}},\"UserService\":{\"methods\":{\"Login\":{\"requestType\":\"LoginRequest\",\"responseType\":\"LoginResponse\"},\"Register\":{\"requestType\":\"RegisterRequest\",\"responseType\":\"User\"},\"Logout\":{\"requestType\":\"LogoutRequest\",\"responseType\":\"Empty\"},\"ResetPassword\":{\"requestType\":\"ResetPasswordRequest\",\"responseType\":\"Empty\"},\"ResetPasswordConfirm\":{\"requestType\":\"ResetPasswordConfirmRequest\",\"responseType\":\"Empty\"},\"GetProfile\":{\"requestType\":\"GetProfileRequest\",\"responseType\":\"User\"},\"UpdateProfile\":{\"requestType\":\"UpdateProfileRequest\",\"responseType\":\"User\"},\"DeleteProfile\":{\"requestType\":\"DeleteProfileRequest\",\"responseType\":\"Empty\"},\"ListUsers\":{\"requestType\":\"ListUsersRequest\",\"responseType\":\"ListUsersResponse\"}}}}}}",
+              "grpc_type": "unary",
+              "grpc_request": {
+                "user_id": "{{user_id}}"
+              }
+            }
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "GRPC",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:50051",
+              "host": ["localhost"],
+              "port": "50051"
+            },
+            "description": "Update user profile",
+            "body": {
+              "mode": "grpc",
+              "service": "proto.UserService",
+              "method": "UpdateProfile",
+              "grpc_descriptor": "{\"nested\":{\"proto\":{\"nested\":{\"Empty\":{\"fields\":{}},\"LoginRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1},\"password\":{\"type\":\"string\",\"id\":2}}},\"LoginResponse\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"user_id\":{\"type\":\"string\",\"id\":2}}},\"RegisterRequest\":{\"fields\":{\"name\":{\"type\":\"string\",\"id\":1},\"email\":{\"type\":\"string\",\"id\":2},\"password\":{\"type\":\"string\",\"id\":3}}},\"LogoutRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1}}},\"GetProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"UpdateProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3}}},\"DeleteProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordConfirmRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"new_password\":{\"type\":\"string\",\"id\":2}}},\"ListUsersRequest\":{\"fields\":{\"page\":{\"type\":\"int32\",\"id\":1},\"limit\":{\"type\":\"int32\",\"id\":2},\"name_filter\":{\"type\":\"string\",\"id\":3},\"email_filter\":{\"type\":\"string\",\"id\":4}}},\"ListUsersResponse\":{\"fields\":{\"users\":{\"rule\":\"repeated\",\"type\":\"User\",\"id\":1},\"total\":{\"type\":\"int32\",\"id\":2},\"page\":{\"type\":\"int32\",\"id\":3},\"limit\":{\"type\":\"int32\",\"id\":4}}},\"User\":{\"fields\":{\"id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3},\"created_at\":{\"type\":\"string\",\"id\":4},\"updated_at\":{\"type\":\"string\",\"id\":5}}},\"UserService\":{\"methods\":{\"Login\":{\"requestType\":\"LoginRequest\",\"responseType\":\"LoginResponse\"},\"Register\":{\"requestType\":\"RegisterRequest\",\"responseType\":\"User\"},\"Logout\":{\"requestType\":\"LogoutRequest\",\"responseType\":\"Empty\"},\"ResetPassword\":{\"requestType\":\"ResetPasswordRequest\",\"responseType\":\"Empty\"},\"ResetPasswordConfirm\":{\"requestType\":\"ResetPasswordConfirmRequest\",\"responseType\":\"Empty\"},\"GetProfile\":{\"requestType\":\"GetProfileRequest\",\"responseType\":\"User\"},\"UpdateProfile\":{\"requestType\":\"UpdateProfileRequest\",\"responseType\":\"User\"},\"DeleteProfile\":{\"requestType\":\"DeleteProfileRequest\",\"responseType\":\"Empty\"},\"ListUsers\":{\"requestType\":\"ListUsersRequest\",\"responseType\":\"ListUsersResponse\"}}}}}}",
+              "grpc_type": "unary",
+              "grpc_request": {
+                "user_id": "{{user_id}}",
+                "name": "John Updated Doe",
+                "email": "john.updated@example.com"
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete Profile",
+          "request": {
+            "method": "GRPC",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:50051",
+              "host": ["localhost"],
+              "port": "50051"
+            },
+            "description": "Delete user profile",
+            "body": {
+              "mode": "grpc",
+              "service": "proto.UserService",
+              "method": "DeleteProfile",
+              "grpc_descriptor": "{\"nested\":{\"proto\":{\"nested\":{\"Empty\":{\"fields\":{}},\"LoginRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1},\"password\":{\"type\":\"string\",\"id\":2}}},\"LoginResponse\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"user_id\":{\"type\":\"string\",\"id\":2}}},\"RegisterRequest\":{\"fields\":{\"name\":{\"type\":\"string\",\"id\":1},\"email\":{\"type\":\"string\",\"id\":2},\"password\":{\"type\":\"string\",\"id\":3}}},\"LogoutRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1}}},\"GetProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"UpdateProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3}}},\"DeleteProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordConfirmRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"new_password\":{\"type\":\"string\",\"id\":2}}},\"ListUsersRequest\":{\"fields\":{\"page\":{\"type\":\"int32\",\"id\":1},\"limit\":{\"type\":\"int32\",\"id\":2},\"name_filter\":{\"type\":\"string\",\"id\":3},\"email_filter\":{\"type\":\"string\",\"id\":4}}},\"ListUsersResponse\":{\"fields\":{\"users\":{\"rule\":\"repeated\",\"type\":\"User\",\"id\":1},\"total\":{\"type\":\"int32\",\"id\":2},\"page\":{\"type\":\"int32\",\"id\":3},\"limit\":{\"type\":\"int32\",\"id\":4}}},\"User\":{\"fields\":{\"id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3},\"created_at\":{\"type\":\"string\",\"id\":4},\"updated_at\":{\"type\":\"string\",\"id\":5}}},\"UserService\":{\"methods\":{\"Login\":{\"requestType\":\"LoginRequest\",\"responseType\":\"LoginResponse\"},\"Register\":{\"requestType\":\"RegisterRequest\",\"responseType\":\"User\"},\"Logout\":{\"requestType\":\"LogoutRequest\",\"responseType\":\"Empty\"},\"ResetPassword\":{\"requestType\":\"ResetPasswordRequest\",\"responseType\":\"Empty\"},\"ResetPasswordConfirm\":{\"requestType\":\"ResetPasswordConfirmRequest\",\"responseType\":\"Empty\"},\"GetProfile\":{\"requestType\":\"GetProfileRequest\",\"responseType\":\"User\"},\"UpdateProfile\":{\"requestType\":\"UpdateProfileRequest\",\"responseType\":\"User\"},\"DeleteProfile\":{\"requestType\":\"DeleteProfileRequest\",\"responseType\":\"Empty\"},\"ListUsers\":{\"requestType\":\"ListUsersRequest\",\"responseType\":\"ListUsersResponse\"}}}}}}",
+              "grpc_type": "unary",
+              "grpc_request": {
+                "user_id": "{{user_id}}"
+              }
+            }
+          }
+        },
+        {
+          "name": "List Users",
+          "request": {
+            "method": "GRPC",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:50051",
+              "host": ["localhost"],
+              "port": "50051"
+            },
+            "description": "List users with pagination and filtering",
+            "body": {
+              "mode": "grpc",
+              "service": "proto.UserService",
+              "method": "ListUsers",
+              "grpc_descriptor": "{\"nested\":{\"proto\":{\"nested\":{\"Empty\":{\"fields\":{}},\"LoginRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1},\"password\":{\"type\":\"string\",\"id\":2}}},\"LoginResponse\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"user_id\":{\"type\":\"string\",\"id\":2}}},\"RegisterRequest\":{\"fields\":{\"name\":{\"type\":\"string\",\"id\":1},\"email\":{\"type\":\"string\",\"id\":2},\"password\":{\"type\":\"string\",\"id\":3}}},\"LogoutRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1}}},\"GetProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"UpdateProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3}}},\"DeleteProfileRequest\":{\"fields\":{\"user_id\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordRequest\":{\"fields\":{\"email\":{\"type\":\"string\",\"id\":1}}},\"ResetPasswordConfirmRequest\":{\"fields\":{\"token\":{\"type\":\"string\",\"id\":1},\"new_password\":{\"type\":\"string\",\"id\":2}}},\"ListUsersRequest\":{\"fields\":{\"page\":{\"type\":\"int32\",\"id\":1},\"limit\":{\"type\":\"int32\",\"id\":2},\"name_filter\":{\"type\":\"string\",\"id\":3},\"email_filter\":{\"type\":\"string\",\"id\":4}}},\"ListUsersResponse\":{\"fields\":{\"users\":{\"rule\":\"repeated\",\"type\":\"User\",\"id\":1},\"total\":{\"type\":\"int32\",\"id\":2},\"page\":{\"type\":\"int32\",\"id\":3},\"limit\":{\"type\":\"int32\",\"id\":4}}},\"User\":{\"fields\":{\"id\":{\"type\":\"string\",\"id\":1},\"name\":{\"type\":\"string\",\"id\":2},\"email\":{\"type\":\"string\",\"id\":3},\"created_at\":{\"type\":\"string\",\"id\":4},\"updated_at\":{\"type\":\"string\",\"id\":5}}},\"UserService\":{\"methods\":{\"Login\":{\"requestType\":\"LoginRequest\",\"responseType\":\"LoginResponse\"},\"Register\":{\"requestType\":\"RegisterRequest\",\"responseType\":\"User\"},\"Logout\":{\"requestType\":\"LogoutRequest\",\"responseType\":\"Empty\"},\"ResetPassword\":{\"requestType\":\"ResetPasswordRequest\",\"responseType\":\"Empty\"},\"ResetPasswordConfirm\":{\"requestType\":\"ResetPasswordConfirmRequest\",\"responseType\":\"Empty\"},\"GetProfile\":{\"requestType\":\"GetProfileRequest\",\"responseType\":\"User\"},\"UpdateProfile\":{\"requestType\":\"UpdateProfileRequest\",\"responseType\":\"User\"},\"DeleteProfile\":{\"requestType\":\"DeleteProfileRequest\",\"responseType\":\"Empty\"},\"ListUsers\":{\"requestType\":\"ListUsersRequest\",\"responseType\":\"ListUsersResponse\"}}}}}}",
+              "grpc_type": "unary",
+              "grpc_request": {
+                "page": 1,
+                "limit": 10,
+                "name_filter": "",
+                "email_filter": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "5f8d0f5b7e6c1d2a3b4c5d6e",
+      "type": "string"
+    }
+  ],
+  "event": [
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "if (pm.response.code === 200) {",
+          "    if (pm.request.method === 'Login') {",
+          "        const responseJson = pm.response.json();",
+          "        pm.environment.set('token', responseJson.token);",
+          "        pm.environment.set('user_id', responseJson.user_id);",
+          "    }",
+          "}"
+        ]
+      }
+    }
+  ]
+}
