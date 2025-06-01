@@ -1,7 +1,5 @@
 # User Management API
 
-> *Read this in [Thai (docs/README_TH.md)](docs/README_TH.md)*
-
 A complete gRPC-based user management service with JWT authentication and MongoDB backend. This project demonstrates modern Go programming practices, clean architecture principles, and provides robust user management capabilities.
 
 ## ✨ Features
