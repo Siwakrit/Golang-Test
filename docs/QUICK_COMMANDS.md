@@ -132,12 +132,12 @@ docker compose up --build
 
 ### 📋 List Available gRPC Services
 ```powershell
-grpcurl -plaintext localhost:50051 list
+grpcurl -plaintext localhost:50052 list
 ```
 
 ### 🔍 List Methods of a Service
 ```powershell
-grpcurl -plaintext localhost:50051 list proto.UserService
+grpcurl -plaintext localhost:50052 list proto.UserService
 ```
 
 ### 📡 Call a gRPC Method (Example: Register)
@@ -146,7 +146,7 @@ grpcurl -plaintext -d '{
   "username": "testuser",
   "email": "test@example.com",
   "password": "Password123!"
-}' localhost:50051 proto.UserService/Register
+}' localhost:50052 proto.UserService/Register
 ```
 
 ### 🔑 Login Example
@@ -154,7 +154,7 @@ grpcurl -plaintext -d '{
 grpcurl -plaintext -d '{
   "email": "test@example.com",
   "password": "Password123!"
-}' localhost:50051 proto.UserService/Login
+}' localhost:50052 proto.UserService/Login
 ```
 
 ## 8. 🐳 Docker Commands
@@ -166,7 +166,7 @@ docker build -t user-service .
 
 ### 🚢 Run Docker Container
 ```powershell
-docker run -p 50051:50051 -p 8080:8080 user-service
+docker run -p 50052:50052 -p 8081:8081 user-service
 ```
 
 ### ⏹️ Stop All Containers
@@ -183,10 +183,12 @@ docker compose down --rmi all -v
 
 Create a `.env` file in the project root with the following content:
 ```
-PORT=:50051
+PORT=:50052
+GRPC_PORT=50052
+HTTP_PORT=8081
 MONGO_URI=mongodb://localhost:27017
 DB_NAME=usermanagement
-JWT_SECRET_KEY=your-secret-key
+JWT_SECRET_KEY=your-secret-key-change-in-production
 TOKEN_DURATION=24h
 RATE_LIMIT=5
 RATE_LIMIT_WINDOW=1m

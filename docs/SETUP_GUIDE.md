@@ -98,13 +98,12 @@ Golang-Test/
    This will:
    - Start MongoDB container on port 27017
    - Build and start the gRPC service container
-   - Expose ports:
-     - 50051 for gRPC
-     - 8080 for REST API (via gRPC Gateway)
+   - Expose ports:     - 50052 for gRPC
+     - 8081 for REST API (via gRPC Gateway)
 
 3. **Verify the service is running:** ✅
    ```powershell
-   grpcurl -plaintext localhost:50051 list
+   grpcurl -plaintext localhost:50052 list
    ```
    
    You should see `proto.UserService` in the output.
@@ -118,10 +117,12 @@ Golang-Test/
 2. **Configure environment:** ⚙️
    - Create `.env` file in project root:
      ```
-     PORT=:50051
+     PORT=:50052
+     GRPC_PORT=50052
+     HTTP_PORT=8081
      MONGO_URI=mongodb://localhost:27017
      DB_NAME=usermanagement
-     JWT_SECRET_KEY=your-secret-key
+     JWT_SECRET_KEY=your-secret-key-change-in-production
      TOKEN_DURATION=24h
      RATE_LIMIT=5
      RATE_LIMIT_WINDOW=1m
@@ -135,7 +136,7 @@ Golang-Test/
 
 ## 🔌 API Endpoints
 
-### 🌐 gRPC Endpoints (Port 50051)
+### 🌐 gRPC Endpoints (Port 50052)
 
 The service exposes these gRPC methods:
 
@@ -154,7 +155,7 @@ The service exposes these gRPC methods:
   - `ResetPassword` - Request password reset
   - `ResetPasswordConfirm` - Complete password reset
 
-### 🌍 REST Endpoints (Port 8080)
+### 🌍 REST Endpoints (Port 8081)
 
 The gRPC-Gateway provides RESTful equivalents of all gRPC endpoints, for example:
 
@@ -195,21 +196,21 @@ The gRPC-Gateway provides RESTful equivalents of all gRPC endpoints, for example
 - **gRPC API Testing with gRPCurl:** 📡
   ```powershell
   # List all methods
-  grpcurl -plaintext localhost:50051 list proto.UserService
+  grpcurl -plaintext localhost:50052 list proto.UserService
   
   # Call specific method (example: Register)
   grpcurl -plaintext -d '{
     "username": "testuser",
     "email": "test@example.com",
     "password": "Password123!"
-  }' localhost:50051 proto.UserService/Register
+  }' localhost:50052 proto.UserService/Register
   ```
 
 - **REST API Testing:** 🌐
   - Use Postman with the provided collection in `test/api/user-management-rest.postman_collection.json`
   - Or use curl:
     ```powershell
-    Invoke-RestMethod -Uri "http://localhost:8080/v1/auth/register" -Method Post -ContentType "application/json" -Body '{"username":"testuser","email":"test@example.com","password":"Password123!"}'
+    Invoke-RestMethod -Uri "http://localhost:8081/v1/auth/register" -Method Post -ContentType "application/json" -Body '{"username":"testuser","email":"test@example.com","password":"Password123!"}'
     ```
 
 ## ⚠️ Common Issues and Solutions
@@ -242,7 +243,7 @@ The service is Docker-ready and can be deployed to any container orchestration s
 
 ```powershell
 docker build -t user-service .
-docker run -p 50051:50051 -p 8080:8080 user-service
+docker run -p 50052:50052 -p 8081:8081 user-service
 ```
 
 ### 🐙 Docker Compose (Production)

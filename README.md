@@ -223,7 +223,9 @@ This will download all required dependencies based on the go.mod file.
 Create a `.env` file in the root directory with the following content:
 
 ```
-PORT=:50051
+PORT=:50052
+GRPC_PORT=50052
+HTTP_PORT=8081
 MONGO_URI=mongodb://localhost:27017
 DB_NAME=usermanagement
 JWT_SECRET_KEY=your-secure-secret-key-should-be-long-and-random
@@ -236,7 +238,9 @@ Alternatively, you can set environment variables directly in your shell:
 
 For PowerShell:
 ```powershell
-$env:PORT = ":50051"
+$env:PORT = ":50052"
+$env:GRPC_PORT = "50052"
+$env:HTTP_PORT = "8081"
 $env:MONGO_URI = "mongodb://localhost:27017"
 $env:DB_NAME = "usermanagement"
 $env:JWT_SECRET_KEY = "your-secure-secret-key"
@@ -247,7 +251,9 @@ $env:RATE_LIMIT_WINDOW = "1m"
 
 For Command Prompt:
 ```cmd
-set PORT=:50051
+set PORT=:50052
+set GRPC_PORT=50052
+set HTTP_PORT=8081
 set MONGO_URI=mongodb://localhost:27017
 set DB_NAME=usermanagement
 set JWT_SECRET_KEY=your-secure-secret-key

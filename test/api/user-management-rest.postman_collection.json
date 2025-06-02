@@ -16,10 +16,10 @@
               { "key": "Content-Type", "value": "application/json" }
             ],
             "url": {
-              "raw": "http://localhost:8080/v1/register",
+              "raw": "http://localhost:8081/v1/register",
               "protocol": "http",
               "host": ["localhost"],
-              "port": "8080",
+              "port": "8081",
               "path": ["v1", "register"]
             },
             "body": {
@@ -37,10 +37,10 @@
               { "key": "Content-Type", "value": "application/json" }
             ],
             "url": {
-              "raw": "http://localhost:8080/v1/login",
+              "raw": "http://localhost:8081/v1/login",
               "protocol": "http",
               "host": ["localhost"],
-              "port": "8080",
+              "port": "8081",
               "path": ["v1", "login"]
             },
             "body": {
@@ -59,10 +59,10 @@
               { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "http://localhost:8080/v1/logout",
+              "raw": "http://localhost:8081/v1/logout",
               "protocol": "http",
               "host": ["localhost"],
-              "port": "8080",
+              "port": "8081",
               "path": ["v1", "logout"]
             },
             "body": {
@@ -80,10 +80,10 @@
               { "key": "Content-Type", "value": "application/json" }
             ],
             "url": {
-              "raw": "http://localhost:8080/v1/reset-password",
+              "raw": "http://localhost:8081/v1/reset-password",
               "protocol": "http",
               "host": ["localhost"],
-              "port": "8080",
+              "port": "8081",
               "path": ["v1", "reset-password"]
             },
             "body": {
@@ -101,10 +101,10 @@
               { "key": "Content-Type", "value": "application/json" }
             ],
             "url": {
-              "raw": "http://localhost:8080/v1/reset-password/confirm",
+              "raw": "http://localhost:8081/v1/reset-password/confirm",
               "protocol": "http",
               "host": ["localhost"],
-              "port": "8080",
+              "port": "8081",
               "path": ["v1", "reset-password", "confirm"]
             },
             "body": {
@@ -127,10 +127,10 @@
               { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "http://localhost:8080/v1/profile/{{user_id}}",
+              "raw": "http://localhost:8081/v1/profile/{{user_id}}",
               "protocol": "http",
               "host": ["localhost"],
-              "port": "8080",
+              "port": "8081",
               "path": ["v1", "profile", "{{user_id}}"]
             },
             "description": "Get user profile via REST"
@@ -145,10 +145,10 @@
               { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "http://localhost:8080/v1/profile/{{user_id}}",
+              "raw": "http://localhost:8081/v1/profile/{{user_id}}",
               "protocol": "http",
               "host": ["localhost"],
-              "port": "8080",
+              "port": "8081",
               "path": ["v1", "profile", "{{user_id}}"]
             },
             "body": {
@@ -166,10 +166,10 @@
               { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "http://localhost:8080/v1/profile/{{user_id}}",
+              "raw": "http://localhost:8081/v1/profile/{{user_id}}",
               "protocol": "http",
               "host": ["localhost"],
-              "port": "8080",
+              "port": "8081",
               "path": ["v1", "profile", "{{user_id}}"]
             },
             "description": "Delete user profile via REST"
@@ -183,10 +183,10 @@
               { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "http://localhost:8080/v1/users?page=1&limit=10",
+              "raw": "http://localhost:8081/v1/users?page=1&limit=10",
               "protocol": "http",
               "host": ["localhost"],
-              "port": "8080",
+              "port": "8081",
               "path": ["v1", "users"],
               "query": [
                 { "key": "page", "value": "1" },

@@ -1,4 +1,4 @@
-version: '3.8'
+﻿version: '3.8'
 
 services:
   mongo:
@@ -8,8 +8,10 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    env_file:
+      - .env
     environment:
-      - MONGO_INITDB_DATABASE=usermanagement
+      - MONGO_INITDB_DATABASE=${DB_NAME:-usermanagement} # ใช้ค่า DB_NAME จาก .env
     networks:
       - app-network
     restart: always
@@ -25,16 +27,12 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "50051:50051"
-      - "8080:8080" # REST Gateway
+      - "50052:50052" # gRPC port ตาม .env
+      - "8081:8081" # REST Gateway port ตาม .env
+    env_file:
+      - .env
     environment:
-      - PORT=:50051
-      - MONGO_URI=mongodb://mongo:27017
-      - DB_NAME=usermanagement
-      - JWT_SECRET_KEY=your-secret-key
-      - TOKEN_DURATION=24h
-      - RATE_LIMIT=5
-      - RATE_LIMIT_WINDOW=1m
+      - MONGO_URI=mongodb://mongo:27017 # ใช้ hostname mongo แทน localhost ใน Docker
     depends_on:
       - mongo
     networks:

@@ -14,9 +14,9 @@
             "method": "GRPC",
             "header": [],
             "url": {
-              "raw": "localhost:50051",
+              "raw": "localhost:50052",
               "host": ["localhost"],
-              "port": "50051"
+              "port": "50052"
             },
             "description": "Register a new user",
             "body": {
@@ -39,9 +39,9 @@
             "method": "GRPC",
             "header": [],
             "url": {
-              "raw": "localhost:50051",
+              "raw": "localhost:50052",
               "host": ["localhost"],
-              "port": "50051"
+              "port": "50052"
             },
             "description": "Authenticate a user and get a JWT token",
             "body": {
@@ -69,9 +69,9 @@
               }
             ],
             "url": {
-              "raw": "localhost:50051",
+              "raw": "localhost:50052",
               "host": ["localhost"],
-              "port": "50051"
+              "port": "50052"
             },
             "description": "Logout and invalidate the token",
             "body": {
@@ -92,9 +92,9 @@
             "method": "GRPC",
             "header": [],
             "url": {
-              "raw": "localhost:50051",
+              "raw": "localhost:50052",
               "host": ["localhost"],
-              "port": "50051"
+              "port": "50052"
             },
             "description": "Request password reset",
             "body": {
@@ -115,9 +115,9 @@
             "method": "GRPC",
             "header": [],
             "url": {
-              "raw": "localhost:50051",
+              "raw": "localhost:50052",
               "host": ["localhost"],
-              "port": "50051"
+              "port": "50052"
             },
             "description": "Confirm password reset with token",
             "body": {
@@ -150,9 +150,9 @@
               }
             ],
             "url": {
-              "raw": "localhost:50051",
+              "raw": "localhost:50052",
               "host": ["localhost"],
-              "port": "50051"
+              "port": "50052"
             },
             "description": "Get user profile",
             "body": {
@@ -179,9 +179,9 @@
               }
             ],
             "url": {
-              "raw": "localhost:50051",
+              "raw": "localhost:50052",
               "host": ["localhost"],
-              "port": "50051"
+              "port": "50052"
             },
             "description": "Update user profile",
             "body": {
@@ -210,9 +210,9 @@
               }
             ],
             "url": {
-              "raw": "localhost:50051",
+              "raw": "localhost:50052",
               "host": ["localhost"],
-              "port": "50051"
+              "port": "50052"
             },
             "description": "Delete user profile",
             "body": {
@@ -239,9 +239,9 @@
               }
             ],
             "url": {
-              "raw": "localhost:50051",
+              "raw": "localhost:50052",
               "host": ["localhost"],
-              "port": "50051"
+              "port": "50052"
             },
             "description": "List users with pagination and filtering",
             "body": {
