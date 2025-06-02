@@ -5,7 +5,15 @@ This guide will help you set up, build, and run the User Management API project 
 ## 📋 Prerequisites
 
 1. **Go** 🔧 (>= 1.23)
-   - Download and install from [https://golang.org/dl/](https://golang.org/dl/)
+   - Download and install f### 🔧 Environment Considerations
+
+Remember to set appropriate environment variables for production:
+- 🔑 Use a strong JWT secret key
+- ⚡ Configure appropriate rate limits
+- 🔒 Set proper database credentials
+- 🛡️ Consider implementing SSL/TLS for secure communication
+
+## 🧰 Additional Commandss://golang.org/dl/](https://golang.org/dl/)
    - Verify installation:
      ```powershell
      go version
@@ -276,4 +284,4 @@ Remember to set appropriate environment variables for production:
 
 ---
 
-For more detailed information, refer to the code comments and the main README.md file.
+For more detailed information, refer to the code comments and the main README.md file. 📚
